@@ -1,6 +1,6 @@
 import "@styles/globals.css";
 import Nav from "@components/Nav";
-import Provider from "@components/Provider";
+// import Provider from "@components/Provider";
 
 export const metadata = {
   title: "BrainWave",
@@ -12,15 +12,15 @@ const RootLayout = ({ children }) => {
     <>
       <html lang="en">
         <body>
-          <Provider>
-            <div className="main" v>
-              <div className="gradient"></div>
-            </div>
-            <main className="app">
-              <Nav />
-              {children}
-            </main>
-          </Provider>
+          {/* <Provider> */}
+          <div className="main" v>
+            <div className="gradient"></div>
+          </div>
+          <main className="app">
+            <Nav />
+            {children}
+          </main>
+          {/* </Provider> */}
         </body>
       </html>
     </>

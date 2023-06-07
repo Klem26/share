@@ -10,13 +10,13 @@ const Nav = () => {
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
-  useEffect(() => {
-    const setProviders = async () => {
-      const res = await getProviders();
-      setProviders(res);
-    };
-    setProviders();
-  }, []);
+  // useEffect(() => {
+  //   const setProviders = async () => {
+  //     const res = await getProviders();
+  //     setProviders(res);
+  //   };
+  //   setProviders();
+  // }, []);
 
   return (
     <nav className="flex-between w-full mb-16 pt-3">
@@ -54,7 +54,7 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {providers &&
+            {/* {providers &&
               Object.values(providers).map((provider) => (
                 <button
                   type="button"
@@ -65,7 +65,7 @@ const Nav = () => {
                   {" "}
                   Sing In
                 </button>
-              ))}
+              ))} */}
           </>
         )}
       </div>
@@ -115,7 +115,7 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {providers &&
+            {/* {providers &&
               Object.values(providers).map((provider) => (
                 <button
                   type="button"
@@ -126,7 +126,7 @@ const Nav = () => {
                   {" "}
                   Sing In
                 </button>
-              ))}
+              ))} */}
           </>
         )}
       </div>
