@@ -6,17 +6,17 @@ import { useEffect, useState } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Nav = () => {
-  const User = true;
+  const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
-  // useEffect(() => {
-  //   const setProviders = async () => {
-  //     const res = await getProviders();
-  //     setProviders(res);
-  //   };
-  //   setProviders();
-  // }, []);
+  useEffect(() => {
+    const setUpProviders = async () => {
+      const res = await getProviders();
+      setProviders(res);
+    };
+    setUpProviders();
+  }, []);
 
   return (
     <nav className="flex-between w-full mb-16 pt-3">
@@ -33,7 +33,7 @@ const Nav = () => {
 
       {/* Desktop */}
       <div className="sm:flex hidden">
-        {User ? (
+        {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-prompt" className="black_btn">
               Create Post
@@ -43,8 +43,7 @@ const Nav = () => {
             </button>
             <Link href="/profile">
               <Image
-                src="/assets/images/logo.svg"
-                // src={session?.user.image}
+                src={session?.user.image}
                 width={32}
                 height={32}
                 className="rounded-full"
@@ -54,7 +53,7 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {/* {providers &&
+            {providers &&
               Object.values(providers).map((provider) => (
                 <button
                   type="button"
@@ -62,21 +61,19 @@ const Nav = () => {
                   onClick={() => signIn(provider.id)}
                   className="outline_btn"
                 >
-                  {" "}
                   Sing In
                 </button>
-              ))} */}
+              ))}
           </>
         )}
       </div>
 
       {/* Mob */}
       <div className="sm:hidden flex relative">
-        {User ? (
+        {session?.user ? (
           <div className="flex">
             <Image
-              src="/assets/images/logo.svg"
-              // src={session?.user.image}
+              src={session?.user.image}
               width={32}
               height={32}
               className="rounded-full"
@@ -115,7 +112,7 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {/* {providers &&
+            {providers &&
               Object.values(providers).map((provider) => (
                 <button
                   type="button"
@@ -123,10 +120,9 @@ const Nav = () => {
                   onClick={() => signIn(provider.id)}
                   className="outline_btn"
                 >
-                  {" "}
                   Sing In
                 </button>
-              ))} */}
+              ))}
           </>
         )}
       </div>
