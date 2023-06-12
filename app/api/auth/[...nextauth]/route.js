@@ -21,13 +21,13 @@ const handler = NextAuth({
     async signIn({ account, profile, user, credentials }) {
       try {
         await connectToDB();
-
+        
         const userExists = await User.findOne({ email: profile.email });
 
         if (!userExists) {
           await User.create({
             email: profile.email,
-            username: profile.name.replace(" ", "").toLowerCase(),
+            username: profile.name,
             image: profile.picture,
           });
         }
