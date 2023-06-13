@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import PromptCard from "./PromptCard";
+import Image from "next/image";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -17,18 +18,40 @@ const PromptCardList = ({ data, handleTagClick }) => {
   );
 };
 
+const Loader = () => {
+  return (
+    <div>
+      <Image
+        src="/assets/icons/loader.svg"
+        alt="logo"
+        width={32}
+        height={32}
+        className="object-contain"
+      />
+    </div>
+  );
+};
+
 const Feed = () => {
   const [allPosts, setAllPosts] = useState([]);
 
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchPosts = async () => {
-    const response = await fetch("/api/prompt");
-    const data = await response.json();
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/prompt");
+      const data = await response.json();
 
-    setAllPosts(data);
+      setAllPosts(data);
+    } catch (error) {
+      console.log(error);
+    }
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -75,6 +98,7 @@ const Feed = () => {
           required
           className="search_input peer"
         />
+        {isLoading && <Loader />}
       </form>
       {searchText ? (
         <PromptCardList
