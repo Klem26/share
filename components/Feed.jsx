@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import PromptCard from "./PromptCard";
 import Image from "next/image";
 
@@ -34,11 +34,20 @@ const Loader = () => {
 
 const Feed = () => {
   const [allPosts, setAllPosts] = useState([]);
+  const prevAmount = usePrevious(allPosts);
 
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  function usePrevious(value) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current;
+  }
 
   const fetchPosts = async () => {
     setIsLoading(true);
@@ -55,8 +64,10 @@ const Feed = () => {
   };
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    if (prevAmount?.length !== allPosts.length) {
+      fetchPosts();
+    }
+  }, [allPosts]);
 
   const filterPrompts = (searchText) => {
     const regex = new RegExp(searchText, "i");
