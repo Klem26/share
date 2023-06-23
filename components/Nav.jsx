@@ -47,7 +47,7 @@ const Nav = () => {
                 width={32}
                 height={32}
                 className="rounded-full"
-                alt="profile"
+                alt="profile user"
               />
             </Link>
           </div>

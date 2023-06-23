@@ -6,12 +6,13 @@ import Image from "next/image";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
-    <div className="mt-16 prompt_layout">
+    <div className="mt-16 prompt_layout" data-testid="prompt-card-list">
       {data.map((post) => (
         <PromptCard
           key={post._id}
           post={post}
           handleTagClick={handleTagClick}
+          data-testid="prompt-card"
         />
       ))}
     </div>
@@ -27,6 +28,7 @@ const Loader = () => {
         width={32}
         height={32}
         className="object-contain"
+        data-testid="loader"
       />
     </div>
   );

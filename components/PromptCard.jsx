@@ -18,12 +18,11 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 
   const handleProfileClick = () => {
     if (post.creator._id === session?.user.id) return router.push("/profile");
-
     router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
   };
 
   return (
-    <div className="prompt_card">
+    <div className="prompt_card" data-testid="prompt-card">
       <div className="flex justify-between items-start gap-5">
         <div
           className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
@@ -59,27 +58,20 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
         </div>
       </div>
       <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
-      <p
-        className="font-inter text-sm blue_gradient cursor-pointer"
-        onClick={() => handleTagClick && handleTagClick(post.tag)}
-      >
-        #{post.tag}
-      </p>
-
+      <button onClick={() => handleTagClick && handleTagClick(post.tag)}>
+        <p className="font-inter text-sm blue_gradient cursor-pointer">
+          #{post.tag}
+        </p>
+      </button>
       {session?.user.id === post.creator?._id && pathName === "/profile" && (
         <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
-          <p
-            className="font-inter text-sm green_gradient cursor-pointer"
-            onClick={handleEdit}
-          >
-            Edit
-          </p>
-          <p
-            className="font-inter text-sm orange_gradient cursor-pointer"
-            onClick={handleDelete}
-          >
-            Delete
-          </p>
+          <button data-testid="edit-button" onClick={handleEdit}>
+            <p className="font-inter text-sm green_gradient "> Edit</p>
+          </button>
+
+          <button data-testid="Delete" onClick={handleDelete}>
+            <p className="font-inter text-sm violet_gradient ">Delete</p>
+          </button>
         </div>
       )}
     </div>
